@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Impugnación Técnica de Reclamación de Rentas</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,300&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy:#0d1b2a; --gold:#c9a84c; --gold-light:#e8c97a; --cream:#f5f0e8;
+    --text-dark:#1a1a2e; --text-mid:#3d3d5c; --text-light:#6b6b8a;
+    --red:#c0392b; --green:#1a6b3c; --orange:#d35400;
+    --border:rgba(201,168,76,0.28); --shadow:0 4px 30px rgba(13,27,42,0.09);
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{font-family:'Source Serif 4',Georgia,serif;background:var(--cream);color:var(--text-dark);line-height:1.7;}
+
+  /* COVER */
+  .cover{background:var(--navy);color:white;min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:60px 40px;position:relative;overflow:hidden;}
+  .cover::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 25% 50%,rgba(201,168,76,0.07) 0%,transparent 60%),radial-gradient(ellipse at 75% 50%,rgba(192,57,43,0.05) 0%,transparent 60%);}
+  .cover-orn{width:100px;height:2px;background:linear-gradient(90deg,transparent,var(--gold),transparent);margin:0 auto 32px;}
+  .cover-tag{font-family:'Roboto Mono',monospace;font-size:11px;letter-spacing:4px;text-transform:uppercase;color:var(--gold);margin-bottom:22px;}
+  .cover-ref{background:rgba(192,57,43,0.15);border:1px solid rgba(192,57,43,0.4);border-radius:8px;padding:14px 28px;margin-bottom:35px;max-width:600px;}
+  .cover-ref p{font-family:'Roboto Mono',monospace;font-size:11px;color:rgba(255,255,255,0.7);letter-spacing:1px;line-height:1.6;}
+  .cover-ref strong{color:#e74c3c;}
+  .cover-title{font-family:'Playfair Display',serif;font-size:clamp(30px,5vw,56px);font-weight:900;line-height:1.1;margin-bottom:16px;color:white;}
+  .cover-title span{color:#e74c3c;}
+  .cover-sub{font-size:16px;font-weight:300;font-style:italic;color:rgba(255,255,255,0.6);max-width:560px;margin:0 auto 40px;}
+  .cover-div{width:50px;height:1px;background:var(--gold);margin:0 auto 32px;opacity:.6;}
+  .cover-meta{display:flex;gap:36px;justify-content:center;flex-wrap:wrap;}
+  .cm{text-align:center;}
+  .cm-l{font-family:'Roboto Mono',monospace;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);display:block;margin-bottom:4px;}
+  .cm-v{font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:white;}
+  .cover-foot{position:absolute;bottom:26px;font-family:'Roboto Mono',monospace;font-size:9px;letter-spacing:2px;color:rgba(255,255,255,0.22);text-transform:uppercase;}
+
+  /* LAYOUT */
+  .wrap{max-width:1060px;margin:0 auto;padding:0 28px;}
+  .sec{padding:60px 0 40px;}
+  .sec-hdr{display:flex;align-items:center;gap:16px;margin-bottom:34px;padding-bottom:16px;border-bottom:1px solid var(--border);}
+  .sec-n{font-family:'Playfair Display',serif;font-size:52px;font-weight:900;color:var(--gold);opacity:.2;line-height:1;min-width:50px;}
+  .sec-tb h2{font-family:'Playfair Display',serif;font-size:25px;font-weight:700;color:var(--navy);margin-bottom:2px;}
+  .sec-tb p{font-size:13px;color:var(--text-light);font-style:italic;}
+
+  /* BOXES */
+  .bx{background:white;border:1px solid var(--border);border-radius:10px;padding:28px 32px;margin-bottom:22px;box-shadow:var(--shadow);}
+  .bx-g{border-left:4px solid var(--gold);border-radius:0 10px 10px 0;}
+  .bx-r{border-left:4px solid var(--red);border-radius:0 10px 10px 0;background:linear-gradient(135deg,#fff8f7,#fff);}
+  .bx-gr{border-left:4px solid var(--green);border-radius:0 10px 10px 0;background:linear-gradient(135deg,#f0fff5,#fff);}
+  .bx-or{border-left:4px solid var(--orange);border-radius:0 10px 10px 0;background:linear-gradient(135deg,#fff8f0,#fff);}
+  .bx p{font-size:14.5px;color:var(--text-mid);line-height:1.85;}
+  .bx p+p{margin-top:11px;}
+  .bt{font-family:'Playfair Display',serif;font-size:16px;font-weight:700;margin-bottom:10px;display:flex;align-items:center;gap:7px;}
+  .bt.r{color:var(--red);} .bt.g{color:#8b6914;} .bt.gr{color:var(--green);} .bt.or{color:var(--orange);}
+  .hl{background:rgba(201,168,76,0.13);border-radius:3px;padding:0 4px;font-weight:600;color:var(--text-dark);}
+  .hl-r{background:rgba(192,57,43,0.1);border-radius:3px;padding:0 4px;font-weight:600;color:var(--red);}
+  .hl-g{background:rgba(26,107,60,0.1);border-radius:3px;padding:0 4px;font-weight:600;color:var(--green);}
+
+  /* YEAR CARD */
+  .yc{background:white;border-radius:14px;overflow:hidden;margin-bottom:32px;box-shadow:var(--shadow);border:1px solid rgba(201,168,76,0.12);}
+  .yh{background:var(--navy);padding:20px 28px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;}
+  .yl{font-family:'Playfair Display',serif;font-size:36px;font-weight:900;color:var(--gold);line-height:1;}
+  .yn{font-family:'Roboto Mono',monospace;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.4);margin-top:3px;}
+  .pills{display:flex;gap:10px;flex-wrap:wrap;}
+  .pill{border-radius:50px;padding:6px 14px;text-align:center;}
+  .pl{font-family:'Roboto Mono',monospace;font-size:8.5px;letter-spacing:2px;text-transform:uppercase;display:block;margin-bottom:1px;}
+  .pv{font-family:'Playfair Display',serif;font-size:15px;font-weight:700;display:block;}
+  .pc{background:rgba(231,76,60,0.15);border:1px solid rgba(231,76,60,0.3);}
+  .pc .pl{color:rgba(231,76,60,0.8);} .pc .pv{color:#e74c3c;}
+  .pr{background:rgba(39,174,96,0.15);border:1px solid rgba(39,174,96,0.3);}
+  .pr .pl{color:rgba(39,174,96,0.8);} .pr .pv{color:#27ae60;}
+  .pe{background:rgba(211,84,0,0.15);border:1px solid rgba(211,84,0,0.3);}
+  .pe .pl{color:rgba(211,84,0,0.8);} .pe .pv{color:var(--orange);}
+  .pd{background:rgba(52,152,219,0.15);border:1px solid rgba(52,152,219,0.3);}
+  .pd .pl{color:rgba(52,152,219,0.8);} .pd .pv{color:#2980b9;}
+
+  /* TABLE */
+  .t{width:100%;border-collapse:collapse;}
+  .t thead tr{background:#f7f4ee;}
+  .t th{font-family:'Roboto Mono',monospace;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--text-light);padding:12px 16px;text-align:left;font-weight:500;border-bottom:1px solid #e8e0d0;}
+  .t td{padding:12px 16px;font-size:13.5px;color:var(--text-mid);border-bottom:1px solid #f0ebe0;vertical-align:middle;}
+  .t tr:last-child td{border-bottom:none;}
+  .t tr:hover td{background:#faf8f4;}
+  .t tr.err td{background:#fff9f8;}
+  .t tr.ok td{background:#f8fffb;}
+  .t tr.acc td{background:#fffdf7;}
+  .mn{font-weight:600;color:var(--text-dark);}
+  .mo{font-family:'Roboto Mono',monospace;font-size:13px;}
+  .cr{color:var(--red);font-weight:700;}
+  .cg{color:var(--green);font-weight:700;}
+  .co{color:var(--orange);font-weight:700;}
+  .cb{color:#2980b9;font-weight:700;}
+  .cz{color:#bbb;}
+  .b{font-family:'Roboto Mono',monospace;font-size:9.5px;padding:2px 7px;border-radius:4px;display:inline-block;}
+  .b-err{background:#fde8e8;color:var(--red);border:1px solid rgba(192,57,43,0.2);}
+  .b-ok{background:#e8f8ef;color:var(--green);border:1px solid rgba(26,107,60,0.2);}
+  .b-acc{background:#fff8e8;color:#8b6914;border:1px solid rgba(201,168,76,0.3);}
+  .b-par{background:#fff0e8;color:var(--orange);border:1px solid rgba(211,84,0,0.2);}
+  .yf{background:#faf8f4;padding:16px 28px;border-top:1px solid #e8e0d0;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;}
+  .yf-n{font-size:12.5px;color:var(--text-light);font-style:italic;}
+  .yf-tt{display:flex;gap:22px;flex-wrap:wrap;}
+  .yft{text-align:right;}
+  .yft-l{font-family:'Roboto Mono',monospace;font-size:9px;letter-spacing:2px;color:var(--text-light);text-transform:uppercase;}
+  .yft-v{font-family:'Playfair Display',serif;font-size:18px;font-weight:700;}
+
+  /* VERDICT */
+  .vrd{background:var(--navy);color:white;border-radius:16px;padding:42px 44px;margin-bottom:32px;box-shadow:0 20px 60px rgba(13,27,42,0.2);position:relative;overflow:hidden;}
+  .vrd::before{content:'';position:absolute;top:-60px;right:-60px;width:260px;height:260px;border-radius:50%;background:radial-gradient(circle,rgba(201,168,76,0.07),transparent 70%);}
+  .vrd-t{font-family:'Playfair Display',serif;font-size:22px;font-weight:900;color:var(--gold-light);margin-bottom:22px;display:flex;align-items:center;gap:10px;}
+  .vrow{display:flex;justify-content:space-between;align-items:center;padding:12px 0;border-bottom:1px solid rgba(255,255,255,0.07);flex-wrap:wrap;gap:6px;}
+  .vrow:last-of-type{border-bottom:none;}
+  .vrl{font-size:14px;color:rgba(255,255,255,0.65);}
+  .vrv{font-family:'Roboto Mono',monospace;font-size:16px;font-weight:700;}
+  .vr{color:#e74c3c;} .vg{color:#2ecc71;} .vgo{color:var(--gold-light);} .vo{color:#f39c12;}
+  .vfin{background:rgba(201,168,76,0.1);border:1px solid rgba(201,168,76,0.28);border-radius:8px;padding:20px 24px;margin-top:22px;}
+  .vfin p{font-size:14px;color:rgba(255,255,255,0.75);line-height:1.85;}
+  .vfin strong{color:var(--gold-light);font-size:15px;}
+
+  /* LEGAL */
+  .lc{background:white;border:1px solid #e8e0d0;border-radius:12px;padding:30px 36px;margin-bottom:28px;}
+  .lc h3{font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:var(--navy);margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid #e8e0d0;}
+  .lc ul{list-style:none;padding:0;}
+  .lc li{padding:10px 0 10px 22px;position:relative;font-size:14px;color:var(--text-mid);border-bottom:1px solid #f5f0e8;line-height:1.75;}
+  .lc li:last-child{border-bottom:none;}
+  .lc li::before{content:'§';position:absolute;left:0;color:var(--gold);font-family:'Playfair Display',serif;font-size:14px;font-weight:700;}
+
+  .div{border:none;border-top:1px solid rgba(201,168,76,0.17);margin:52px 0;position:relative;}
+  .div::after{content:'✦';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);background:var(--cream);padding:0 13px;color:var(--gold);font-size:12px;}
+
+  @media(max-width:768px){
+    .yh{padding:16px 16px;} .t th,.t td{padding:10px 11px;} .vrd{padding:26px 18px;}
+    .cover-meta{gap:20px;} .wrap{padding:0 16px;}
+  }
+  @media print{body{background:white;} .cover{min-height:auto;padding:40px;} .yc{page-break-inside:avoid;}}
+</style>
+</head>
+<body>
+
+<!-- PORTADA -->
+<div class="cover">
+  <div class="cover-orn"></div>
+  <div class="cover-tag">Expediente de Defensa · Arrendamiento Plaza Vulcano 19-3ºA Madrid</div>
+  <div class="cover-ref">
+    <p>Respuesta a: <strong>Burofax Electrónico E-CST278701 — 25 de marzo de 2026</strong></p>
+    <p>Remitente: José María Amor Morales, Letrado Colegiado 29495 ICAM</p>
+    <p>En nombre de: Chaoyun Zhang (Arrendador)</p>
+  </div>
+  <h1 class="cover-title">Impugnación Técnica de<br><span>Reclamación de Rentas</span></h1>
+  <p class="cover-sub">Análisis pormenorizado mes a mes — contradicciones documentales — liquidación real ajustada</p>
+  <div class="cover-div"></div>
+  <div class="cover-meta">
+    <div class="cm"><span class="cm-l">Reclamado en burofax</span><span class="cm-v" style="color:#e74c3c;">16.493,50 €</span></div>
+    <div class="cm"><span class="cm-l">Deuda real acreditada</span><span class="cm-v" style="color:#2ecc71;">≈ 5.782,50 €</span></div>
+    <div class="cm"><span class="cm-l">Reclamado sin fundamento</span><span class="cm-v" style="color:#f39c12;">≈ 10.711,00 €</span></div>
+  </div>
+  <div class="cover-foot">Arrendatarios: Walter Alfonso Oviedo Sarmiento · Lizmarianys Rodríguez Fermín · Marzo 2026</div>
+</div>
+
+<div class="wrap">
+
+  <!-- 01 DECLARACIÓN PRELIMINAR -->
+  <div class="sec">
+    <div class="sec-hdr">
+      <div class="sec-n">01</div>
+      <div class="sec-tb"><h2>Declaración Preliminar</h2><p>Posición de los arrendatarios ante la oferta vinculante recibida</p></div>
+    </div>
+
+    <div class="bx bx-g">
+      <div class="bt g">◆ Objeto de este documento</div>
+      <p>Los arrendatarios <span class="hl">Walter Alfonso Oviedo Sarmiento</span> y <span class="hl">Lizmarianys Rodríguez Fermín</span> dan respuesta al burofax electrónico de fecha <strong>25 de marzo de 2026</strong> (ref. E-CST278701), en el que D. Chaoyun Zhang, a través de su letrado, reclama <span class="hl-r">16.493,50 €</span> en concepto de rentas impagadas derivadas del contrato de arrendamiento suscrito el 1 de enero de 2019 sobre la vivienda sita en Plaza de Vulcano nº 19, 3ºA, Madrid.</p>
+      <p>El presente informe demuestra, con el análisis técnico de cada mensualidad, que dicha reclamación contiene <strong>graves errores de cálculo</strong>: incluye como impagados numerosos meses que fueron abonados y pueden acreditarse documentalmente. La deuda real, una vez corregidos los errores y aplicadas las compensaciones por pagos en exceso, asciende a aproximadamente <strong>5.782,50 €</strong> — menos del 35% de lo reclamado.</p>
+    </div>
+
+    <div class="bx bx-or">
+      <div class="bt or">⚠ Circunstancias atenuantes reconocidas en Derecho</div>
+      <p>Los arrendatarios atravesaron durante 2020–2021 una situación acreditada de <span class="hl">ERTE y exclusión social</span> derivada de la pandemia de COVID-19 (Real Decreto 463/2020), circunstancia de fuerza mayor que el ordenamiento jurídico español reconoce expresamente como atenuante de la responsabilidad contractual. Aun así, los arrendatarios <strong>abonaron importes parciales en todos los meses que pudieron</strong>, nunca renunciaron al pago y regularizaron progresivamente su situación.</p>
+      <p>Esta buena fe queda acreditada por el hecho de que en <strong>2024 y 2025</strong> se abonaron cantidades superiores a la renta pactada (700–800 €/mes frente a los 650 € contractuales), con un exceso voluntario de más de 950 € destinado a compensar la deuda acumulada. El propio burofax omite reclamar 2024 y 2025, reconociendo implícitamente que esos años se pagaron.</p>
+    </div>
+
+    <div class="bx bx-r">
+      <div class="bt r">🔴 Error crítico en el burofax: meses pagados reclamados como impagados</div>
+      <p>La reclamación incluye como deuda mensualidades completas de <strong>2022 y 2023</strong> que los arrendatarios abonaron íntegramente y pueden acreditar: marzo, julio, agosto, octubre, noviembre y diciembre de 2022 (6 meses × 650 € = <span class="hl-r">3.900 €</span>), y febrero, marzo, junio y octubre de 2023 (4 meses × 650 € = <span class="hl-r">2.600 €</span>). Además, en 2020 se reclaman octubre y noviembre como impagados cuando se abonaron juntos en un único pago de 1.300 € el 6 de noviembre. <strong>La suma de errores supera los 10.000 €.</strong></p>
+    </div>
+  </div>
+
+  <hr class="div">
+
+  <!-- 02 ANÁLISIS AÑO A AÑO -->
+  <div class="sec">
+    <div class="sec-hdr">
+      <div class="sec-n">02</div>
+      <div class="sec-tb"><h2>Análisis Mes a Mes de la Reclamación</h2><p>Cada importe del burofax contrastado con los pagos acreditados</p></div>
+    </div>
+
+    <div class="bx" style="padding:18px 22px; margin-bottom:28px;">
+      <p style="font-size:12.5px;"><strong>Leyenda:</strong> &nbsp;
+        <span class="b b-acc">ACEPTADO</span> deuda reconocida &nbsp;·&nbsp;
+        <span class="b b-err">IMPUGNADO</span> mes reclamado pero pagado &nbsp;·&nbsp;
+        <span class="b b-par">PARCIAL</span> diferencia reconocida &nbsp;·&nbsp;
+        <span class="b b-ok">PAGADO</span> mes abonado no reclamado
+      </p>
+    </div>
+
+    <!-- 2019 -->
+    <div class="yc">
+      <div class="yh">
+        <div><div class="yl">2019</div><div class="yn">Abr–May · ambos sin pagar</div></div>
+        <div class="pills">
+          <div class="pill pc"><span class="pl">Reclamado</span><span class="pv">1.300,00 €</span></div>
+          <div class="pill pr"><span class="pl">Reconocido</span><span class="pv">1.300,00 €</span></div>
+          <div class="pill pd"><span class="pl">Exceso</span><span class="pv">0,00 €</span></div>
+        </div>
+      </div>
+      <table class="t">
+        <thead><tr><th>Mes</th><th>Reclamado</th><th>Pagado</th><th>Estado</th><th>Deuda reconocida</th><th>Observación</th></tr></thead>
+        <tbody>
+          <tr class="acc"><td class="mn">Abril</td><td class="mo">650,00 €</td><td class="mo cz">0,00 €</td><td><span class="b b-acc">ACEPTADO</span></td><td class="mo cr">650,00 €</td><td style="font-size:12px;">Sin registro de pago</td></tr>
+          <tr class="acc"><td class="mn">Mayo</td><td class="mo">650,00 €</td><td class="mo cz">0,00 €</td><td><span class="b b-acc">ACEPTADO</span></td><td class="mo cr">650,00 €</td><td style="font-size:12px;">Sin registro de pago</td></tr>
+        </tbody>
+      </table>
+      <div class="yf">
+        <div class="yf-n">Ambos meses se reconocen como deuda real.</div>
+        <div class="yf-tt">
+          <div class="yft"><div class="yft-l">Reclamado</div><div class="yft-v cr">1.300,00 €</div></div>
+          <div class="yft"><div class="yft-l">Reconocido</div><div class="yft-v cr">1.300,00 €</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2020 -->
+    <div class="yc">
+      <div class="yh">
+        <div><div class="yl">2020</div><div class="yn">Pandemia / ERTE · errores en oct+nov+sep</div></div>
+        <div class="pills">
+          <div class="pill pc"><span class="pl">Reclamado</span><span class="pv">3.803,50 €</span></div>
+          <div class="pill pr"><span class="pl">Reconocido</span><span class="pv">2.153,50 €</span></div>
+          <div class="pill pe"><span class="pl">Exceso indebido</span><span class="pv">1.650,00 €</span></div>
+        </div>
+      </div>
+      <table class="t">
+        <thead><tr><th>Mes</th><th>Reclamado</th><th>Pagado (acreditado)</th><th>Estado</th><th>Deuda reconocida</th><th>Observación</th></tr></thead>
+        <tbody>
+          <tr class="acc"><td class="mn">Enero</td><td class="mo">73,50 €</td><td class="mo">576,50 €</td><td><span class="b b-par">PARCIAL</span></td><td class="mo cr">73,50 €</td><td style="font-size:12px;">Pago de 576,50 acreditado (BBVA Walter)</td></tr>
+          <tr class="ok"><td class="mn">Febrero</td><td class="mo cg">−5,00 €</td><td class="mo">656,25 €</td><td><span class="b b-ok">PAGADO DE MÁS</span></td><td class="mo cg">−5,00 € (a favor)</td><td style="font-size:12px;">El propio burofax reconoce pago en exceso</td></tr>
+          <tr class="ok"><td class="mn">Marzo</td><td class="mo cg">−5,00 €</td><td class="mo">655,00 €</td><td><span class="b b-ok">PAGADO DE MÁS</span></td><td class="mo cg">−5,00 € (a favor)</td><td style="font-size:12px;">El propio burofax reconoce pago en exceso</td></tr>
+          <tr class="acc"><td class="mn">Abril</td><td class="mo">650,00 €</td><td class="mo cz">0,00 €</td><td><span class="b b-acc">ACEPTADO</span></td><td class="mo cr">650,00 €</td><td style="font-size:12px;">Sin pago · ERTE / Pandemia</td></tr>
+          <tr class="acc"><td class="mn">Mayo</td><td class="mo">650,00 €</td><td class="mo cz">0,00 €</td><td><span class="b b-acc">ACEPTADO</span></td><td class="mo cr">650,00 €</td><td style="font-size:12px;">Sin pago · ERTE / Pandemia</td></tr>
+          <tr class="acc"><td class="mn">Junio</td><td class="mo">150,00 €</td><td class="mo">500,00 €</td><td><span class="b b-par">PARCIAL</span></td><td class="mo cr">150,00 €</td><td style="font-size:12px;">Pago de 500 acreditado (BBVA Walter 09/06)</td></tr>
+          <tr class="acc"><td class="mn">Julio</td><td class="mo">150,00 €</td><td class="mo">500,00 €</td><td><span class="b b-par">PARCIAL</span></td><td class="mo cr">150,00 €</td><td style="font-size:12px;">Pago de 500 acreditado (BBVA Walter 01/07)</td></tr>
+          <tr class="acc"><td class="mn">Agosto</td><td class="mo">250,00 €</td><td class="mo">400,00 €</td><td><span class="b b-par">PARCIAL</span></td><td class="mo cr">250,00 €</td><td style="font-size:12px;">Pago de 400 acreditado (BBVA Walter 13/08)</td></tr>
+          <tr class="err"><td class="mn">Septiembre</td><td class="mo cr">650,00 €</td><td class="mo cg">400,00 €</td><td><span class="b b-err">IMPUGNADO</span></td><td class="mo co">250,00 €</td><td style="font-size:12px;color:var(--red);"><strong>ERROR:</strong> Burofax reclama 650 completos. Pagados 400 (BBVA Walter 10/09). Diferencia real: 250 €</td></tr>
+          <tr class="err"><td class="mn">Octubre</td><td class="mo cr">650,00 €</td><td class="mo cg" style="font-size:12px;">Incluido en noviembre<br>(pago conjunto 1.300 €)</td><td><span class="b b-err">IMPUGNADO</span></td><td class="mo cz">0,00 €</td><td style="font-size:12px;color:var(--red);"><strong>ERROR GRAVE:</strong> El pago de 1.300 € del 6/11 cubre octubre + noviembre. Se reclama doblemente.</td></tr>
+          <tr class="err"><td class="mn">Noviembre</td><td class="mo cr">650,00 €</td><td class="mo cg">1.300,00 €</td><td><span class="b b-err">IMPUGNADO</span></td><td class="mo cz">0,00 €</td><td style="font-size:12px;color:var(--red);"><strong>ERROR GRAVE:</strong> Pago de 1.300 € el 6/11 cubre AMBOS meses íntegramente. No existe deuda.</td></tr>
+          <tr class="acc"><td class="mn">Diciembre</td><td class="mo">140,00 €</td><td class="mo">650,00 €</td><td><span class="b b-par">PARCIAL</span></td><td class="mo cr">140,00 €</td><td style="font-size:12px;">Aceptado según cálculo del burofax (650 − 510)</td></tr>
+        </tbody>
+      </table>
+      <div class="yf">
+        <div class="yf-n" style="color:var(--red);">⚠ Oct y nov reclamados por duplicado — ya cubiertos por el pago de 1.300 € del 6/11. Sep: diferencia real es 250 €, no 650 €.</div>
+        <div class="yf-tt">
+          <div class="yft"><div class="yft-l">Reclamado</div><div class="yft-v cr">3.803,50 €</div></div>
+          <div class="yft"><div class="yft-l">Reconocido</div><div class="yft-v co">2.153,50 €</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2021 -->
+    <div class="yc">
+      <div class="yh">
+        <div><div class="yl">2021</div><div class="yn">Recuperación gradual · 11 meses reclamados</div></div>
+        <div class="pills">
+          <div class="pill pc"><span class="pl">Reclamado</span><span class="pv">2.140,00 €</span></div>
+          <div class="pill pr"><span class="pl">Reconocido</span><span class="pv">1.740,00 €</span></div>
+          <div class="pill pe"><span class="pl">Exceso indebido</span><span class="pv">400,00 €</span></div>
+        </div>
+      </div>
+      <table class="t">
+        <thead><tr><th>Mes</th><th>Reclamado</th><th>Pagado (acreditado)</th><th>Estado</th><th>Deuda reconocida</th><th>Observación</th></tr></thead>
+        <tbody>
+          <tr class="acc"><td class="mn">Enero</td><td class="mo">200,00 €</td><td class="mo">450,00 €</td><td><span class="b b-par">PARCIAL</span></td><td class="mo cr">200,00 €</td><td style="font-size:12px;">450 el 15/01 BBVA Walter</td></tr>
+          <tr class="acc"><td class="mn">Febrero</td><td class="mo">650,00 €</td><td class="mo cz">0,00 €</td><td><span class="b b-acc">ACEPTADO</span></td><td class="mo cr">650,00 €</td><td style="font-size:12px;">Sin registro de pago</td></tr>
+          <tr class="acc"><td class="mn">Marzo</td><td class="mo">50,00 €</td><td class="mo">600,00 €</td><td><span class="b b-par">PARCIAL</span></td><td class="mo cr">50,00 €</td><td style="font-size:12px;">600 acreditado</td></tr>
+          <tr class="acc"><td class="mn">Abril</td><td class="mo">50,00 €</td><td class="mo">600,00 €</td><td><span class="b b-par">PARCIAL</span></td><td class="mo cr">50,00 €</td><td style="font-size:12px;">600 el 05/04 BBVA Walter</td></tr>
+          <tr class="acc"><td class="mn">Mayo</td><td class="mo">140,00 €</td><td class="mo">510,00 €</td><td><span class="b b-par">PARCIAL</span></td><td class="mo cr">140,00 €</td><td style="font-size:12px;">510 el 13/05 BBVA Walter</td></tr>
+          <tr class="acc"><td class="mn">Junio</td><td class="mo">650,00 €</td><td class="mo cz">0,00 €</td><td><span class="b b-acc">ACEPTADO</span></td><td class="mo cr">650,00 €</td><td style="font-size:12px;">Sin registro de pago</td></tr>
+          <tr class="ok"><td class="mn">Julio</td><td class="mo cg">−400,00 €</td><td class="mo cg">1.050,00 €</td><td><span class="b b-ok">PAGADO DE MÁS</span></td><td class="mo cg">−400,00 € (a favor)</td><td style="font-size:12px;">El propio burofax reconoce 400 € en exceso que compensan meses anteriores</td></tr>
+          <tr class="acc"><td class="mn">Agosto</td><td class="mo">50,00 €</td><td class="mo">600,00 €</td><td><span class="b b-par">PARCIAL</span></td><td class="mo cr">50,00 €</td><td style="font-size:12px;">600 acreditado</td></tr>
+          <tr class="acc"><td class="mn">Septiembre</td><td class="mo">650,00 €</td><td class="mo cz">0,00 €</td><td><span class="b b-acc">ACEPTADO</span></td><td class="mo cr">650,00 €</td><td style="font-size:12px;">Sin registro de pago</td></tr>
+          <tr class="acc"><td class="mn">Octubre</td><td class="mo">50,00 €</td><td class="mo">1.000,00 €</td><td><span class="b b-par">PARCIAL</span></td><td class="mo cr">50,00 €</td><td style="font-size:12px;">1.000 acreditado (pago de varios meses)</td></tr>
+          <tr class="acc"><td class="mn">Noviembre</td><td class="mo">50,00 €</td><td class="mo">600,00 €</td><td><span class="b b-par">PARCIAL</span></td><td class="mo cr">50,00 €</td><td style="font-size:12px;">600 acreditado</td></tr>
+          <tr class="ok"><td class="mn">Diciembre</td><td class="mo cz">No reclamado</td><td class="mo cg">650,00 €</td><td><span class="b b-ok">PAGADO</span></td><td class="mo cz">—</td><td style="font-size:12px;">Pagado íntegramente · no reclamado</td></tr>
+        </tbody>
+      </table>
+      <div class="yf">
+        <div class="yf-n">El burofax admite −400 € en julio. La deuda neta de 2021 suma 1.740 € una vez aplicada esa compensación.</div>
+        <div class="yf-tt">
+          <div class="yft"><div class="yft-l">Reclamado</div><div class="yft-v cr">2.140,00 €</div></div>
+          <div class="yft"><div class="yft-l">Reconocido</div><div class="yft-v co">1.740,00 €</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2022 -->
+    <div class="yc">
+      <div class="yh">
+        <div><div class="yl">2022</div><div class="yn">⚠ Errores masivos — 6 de 8 meses reclamados estaban pagados</div></div>
+        <div class="pills">
+          <div class="pill pc"><span class="pl">Reclamado</span><span class="pv">5.200,00 €</span></div>
+          <div class="pill pr"><span class="pl">Reconocido</span><span class="pv">1.300,00 €</span></div>
+          <div class="pill pe"><span class="pl">Reclamado de más</span><span class="pv">3.900,00 €</span></div>
+        </div>
+      </div>
+      <table class="t">
+        <thead><tr><th>Mes</th><th>Reclamado</th><th>Pagado (acreditado)</th><th>Estado</th><th>Deuda reconocida</th><th>Observación</th></tr></thead>
+        <tbody>
+          <tr class="acc"><td class="mn">Enero</td><td class="mo">650,00 €</td><td class="mo cz">0,00 €</td><td><span class="b b-acc">ACEPTADO</span></td><td class="mo cr">650,00 €</td><td style="font-size:12px;">Sin registro de pago</td></tr>
+          <tr class="ok"><td class="mn">Febrero</td><td class="mo cz">No reclamado</td><td class="mo cg">700,00 €</td><td><span class="b b-ok">PAGADO</span></td><td class="mo cz">—</td><td style="font-size:12px;">700 el 09/02 BBVA LIZ · no reclamado</td></tr>
+          <tr class="err"><td class="mn">Marzo</td><td class="mo cr">650,00 €</td><td class="mo cg">650,00 €</td><td><span class="b b-err">IMPUGNADO</span></td><td class="mo cz">0,00 €</td><td style="font-size:12px;color:var(--red);"><strong>ERROR:</strong> Pagado 650 · 03/2022 vía BBVA/Sabadell</td></tr>
+          <tr class="acc"><td class="mn">Abril</td><td class="mo">650,00 €</td><td class="mo cz">0,00 €</td><td><span class="b b-acc">ACEPTADO</span></td><td class="mo cr">650,00 €</td><td style="font-size:12px;">Sin registro de pago</td></tr>
+          <tr class="ok"><td class="mn">Mayo</td><td class="mo cz">No reclamado</td><td class="mo cg">650,00 €</td><td><span class="b b-ok">PAGADO</span></td><td class="mo cz">—</td><td style="font-size:12px;">650 el 10/05 BBVA LIZ · no reclamado</td></tr>
+          <tr class="ok"><td class="mn">Junio</td><td class="mo cz">No reclamado</td><td class="mo cg">660,00 €</td><td><span class="b b-ok">PAGADO</span></td><td class="mo cz">—</td><td style="font-size:12px;">660 el 20/06 BBVA/Sabadell · no reclamado</td></tr>
+          <tr class="err"><td class="mn">Julio</td><td class="mo cr">650,00 €</td><td class="mo cg">700,00 €</td><td><span class="b b-err">IMPUGNADO</span></td><td class="mo cz">0,00 €</td><td style="font-size:12px;color:var(--red);"><strong>ERROR:</strong> Pagado 700 el 4/07 BBVA W/LIZ Sabadell (supera la renta)</td></tr>
+          <tr class="err"><td class="mn">Agosto</td><td class="mo cr">650,00 €</td><td class="mo cg">650,00 €</td><td><span class="b b-err">IMPUGNADO</span></td><td class="mo cz">0,00 €</td><td style="font-size:12px;color:var(--red);"><strong>ERROR:</strong> 443 € + 207 € cerrajero = 650 € completos (BBVA Walter)</td></tr>
+          <tr class="ok"><td class="mn">Septiembre</td><td class="mo cz">No reclamado</td><td class="mo cg">740,00 €</td><td><span class="b b-ok">PAGADO</span></td><td class="mo cz">—</td><td style="font-size:12px;">740 (650+90) el 02/09 BBVA Walter · no reclamado</td></tr>
+          <tr class="err"><td class="mn">Octubre</td><td class="mo cr">650,00 €</td><td class="mo cg">650,00 €</td><td><span class="b b-err">IMPUGNADO</span></td><td class="mo cz">0,00 €</td><td style="font-size:12px;color:var(--red);"><strong>ERROR:</strong> Pagado 650 el 06/10 vía Cajero</td></tr>
+          <tr class="err"><td class="mn">Noviembre</td><td class="mo cr">650,00 €</td><td class="mo cg">700,00 €</td><td><span class="b b-err">IMPUGNADO</span></td><td class="mo cz">0,00 €</td><td style="font-size:12px;color:var(--red);"><strong>ERROR:</strong> Pagado 700 el 08/11 vía Cajero (supera la renta)</td></tr>
+          <tr class="err"><td class="mn">Diciembre</td><td class="mo cr">650,00 €</td><td class="mo cg">650,00 €</td><td><span class="b b-err">IMPUGNADO</span></td><td class="mo cz">0,00 €</td><td style="font-size:12px;color:var(--red);"><strong>ERROR:</strong> Pagado 650 el 13/12 vía Cajero</td></tr>
+        </tbody>
+      </table>
+      <div class="yf">
+        <div class="yf-n" style="color:var(--red);font-weight:600;">⚠ El burofax reclama 8 meses de 2022. Solo 2 (ene y abr) son deuda real. Los otros 6 — 3.900 € — están PAGADOS y documentados.</div>
+        <div class="yf-tt">
+          <div class="yft"><div class="yft-l">Reclamado</div><div class="yft-v cr">5.200,00 €</div></div>
+          <div class="yft"><div class="yft-l">Reconocido</div><div class="yft-v co">1.300,00 €</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2023 -->
+    <div class="yc">
+      <div class="yh">
+        <div><div class="yl">2023</div><div class="yn">⚠ Solo 1 de 5 meses reclamados es deuda real</div></div>
+        <div class="pills">
+          <div class="pill pc"><span class="pl">Reclamado</span><span class="pv">3.250,00 €</span></div>
+          <div class="pill pr"><span class="pl">Reconocido</span><span class="pv">650,00 €</span></div>
+          <div class="pill pe"><span class="pl">Reclamado de más</span><span class="pv">2.600,00 €</span></div>
+        </div>
+      </div>
+      <table class="t">
+        <thead><tr><th>Mes</th><th>Reclamado</th><th>Pagado (acreditado)</th><th>Estado</th><th>Deuda reconocida</th><th>Observación</th></tr></thead>
+        <tbody>
+          <tr class="ok"><td class="mn">Enero</td><td class="mo cz">No reclamado</td><td class="mo cg">550,00 €</td><td><span class="b b-ok">PAGADO</span></td><td class="mo cz">—</td><td style="font-size:12px;">550 el 17/01 BBVA Walter · diferencia 100 no reclamada</td></tr>
+          <tr class="err"><td class="mn">Febrero</td><td class="mo cr">650,00 €</td><td class="mo cg">650,00 €</td><td><span class="b b-err">IMPUGNADO</span></td><td class="mo cz">0,00 €</td><td style="font-size:12px;color:var(--red);"><strong>ERROR:</strong> Pagado 650 el 23/02 vía Cajero</td></tr>
+          <tr class="err"><td class="mn">Marzo</td><td class="mo cr">650,00 €</td><td class="mo cg">650,00 €</td><td><span class="b b-err">IMPUGNADO</span></td><td class="mo cz">0,00 €</td><td style="font-size:12px;color:var(--red);"><strong>ERROR:</strong> Pagado 650 el 24/03 vía Cajero</td></tr>
+          <tr class="acc"><td class="mn">Abril</td><td class="mo">650,00 €</td><td class="mo cz">0,00 €</td><td><span class="b b-acc">ACEPTADO</span></td><td class="mo cr">650,00 €</td><td style="font-size:12px;">Sin registro de pago</td></tr>
+          <tr class="ok"><td class="mn">Mayo</td><td class="mo cz">No reclamado</td><td class="mo cg">650,00 €</td><td><span class="b b-ok">PAGADO</span></td><td class="mo cz">—</td><td style="font-size:12px;">650 el 2/05 BBVA LIZ · no reclamado</td></tr>
+          <tr class="err"><td class="mn">Junio</td><td class="mo cr">650,00 €</td><td class="mo cg">650,00 €</td><td><span class="b b-err">IMPUGNADO</span></td><td class="mo cz">0,00 €</td><td style="font-size:12px;color:var(--red);"><strong>ERROR:</strong> Pagado 650 el 05/06 vía Cajero</td></tr>
+          <tr class="ok"><td class="mn">Jul–Sep</td><td class="mo cz">No reclamado</td><td class="mo cg">2.100,00 €</td><td><span class="b b-ok">PAGADO</span></td><td class="mo cz">—</td><td style="font-size:12px;">700 €/mes · jul, ago, sep · no reclamado</td></tr>
+          <tr class="err"><td class="mn">Octubre</td><td class="mo cr">650,00 €</td><td class="mo cg">700,00 €</td><td><span class="b b-err">IMPUGNADO</span></td><td class="mo cz">0,00 €</td><td style="font-size:12px;color:var(--red);"><strong>ERROR:</strong> Pagado 700 el 29/09 BBVA Walter (supera la renta)</td></tr>
+          <tr class="ok"><td class="mn">Nov–Dic</td><td class="mo cz">No reclamado</td><td class="mo cg">1.370,00 €</td><td><span class="b b-ok">PAGADO</span></td><td class="mo cz">—</td><td style="font-size:12px;">670 nov + 700 dic · no reclamado</td></tr>
+        </tbody>
+      </table>
+      <div class="yf">
+        <div class="yf-n" style="color:var(--red);font-weight:600;">⚠ El burofax reclama 5 meses de 2023. Solo ABRIL es deuda real. Los otros 4 — 2.600 € — están PAGADOS y documentados.</div>
+        <div class="yf-tt">
+          <div class="yft"><div class="yft-l">Reclamado</div><div class="yft-v cr">3.250,00 €</div></div>
+          <div class="yft"><div class="yft-l">Reconocido</div><div class="yft-v co">650,00 €</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="bx bx-gr">
+      <div class="bt gr">✅ Años 2024 y 2025 — No reclamados en el burofax</div>
+      <p>El burofax no reclama ningún importe de 2024 ni 2025, lo que supone un reconocimiento implícito de que esos pagos fueron recibidos. Durante esos años se abonaron <span class="hl-g">700 €/mes en 2024</span> y <span class="hl-g">750–800 €/mes en 2025</span> — por encima de la renta pactada de 650 €. El exceso total asciende a más de <strong>950 €</strong>, importe que debe descontarse de la deuda total como abono voluntario a cuenta (art. 1163 Código Civil).</p>
+    </div>
+  </div>
+
+  <hr class="div">
+
+  <!-- 03 LIQUIDACIÓN REAL -->
+  <div class="sec">
+    <div class="sec-hdr">
+      <div class="sec-n">03</div>
+      <div class="sec-tb"><h2>Liquidación Real Ajustada</h2><p>Deuda efectiva una vez corregidos los errores del burofax</p></div>
+    </div>
+
+    <div class="vrd">
+      <div class="vrd-t">◆ Lo reclamado vs. la deuda real · año a año</div>
+      <div class="vrow"><span class="vrl">2019 — Reclamado / Reconocido</span><span class="vrv vgo">1.300,00 € &nbsp;/&nbsp; <span class="vg">1.300,00 €</span></span></div>
+      <div class="vrow"><span class="vrl">2020 — Reclamado / Reconocido (oct+nov+sep corregidos)</span><span class="vrv vgo">3.803,50 € &nbsp;/&nbsp; <span class="vo">2.153,50 €</span></span></div>
+      <div class="vrow"><span class="vrl">2021 — Reclamado / Reconocido</span><span class="vrv vgo">2.140,00 € &nbsp;/&nbsp; <span class="vo">1.740,00 €</span></span></div>
+      <div class="vrow"><span class="vrl">2022 — Reclamado / Reconocido (6 meses impugnados)</span><span class="vrv vgo">5.200,00 € &nbsp;/&nbsp; <span class="vo">1.300,00 €</span></span></div>
+      <div class="vrow"><span class="vrl">2023 — Reclamado / Reconocido (4 meses impugnados)</span><span class="vrv vgo">3.250,00 € &nbsp;/&nbsp; <span class="vo">650,00 €</span></span></div>
+      <div class="vrow" style="border-top:1px solid rgba(201,168,76,0.35);margin-top:6px;padding-top:16px;">
+        <span class="vrl" style="font-size:16px;color:white;">TOTAL RECLAMADO EN EL BUROFAX</span>
+        <span class="vrv vr" style="font-size:21px;">16.493,50 €</span>
+      </div>
+      <div class="vrow">
+        <span class="vrl" style="font-size:16px;color:white;">Subtotal reconocido como deuda real</span>
+        <span class="vrv vo" style="font-size:21px;">7.143,50 €</span>
+      </div>
+      <div class="vrow"><span class="vrl">Menos: exceso abonado 2024 (50 €/mes × 12)</span><span class="vrv vg">− 600,00 €</span></div>
+      <div class="vrow"><span class="vrl">Menos: exceso abonado 2025 (100 €/mes × 5 meses + 150 × 2)</span><span class="vrv vg">− 350,00 €</span></div>
+      <div class="vrow"><span class="vrl">Menos: exceso julio 2021 (reconocido en el propio burofax)</span><span class="vrv vg">− 400,00 €</span></div>
+      <div class="vrow"><span class="vrl">Menos: feb y mar 2020 pagados de más (reconocido en el burofax)</span><span class="vrv vg">− 10,00 €</span></div>
+      <div class="vrow" style="border-top:2px solid rgba(201,168,76,0.45);margin-top:8px;padding-top:16px;">
+        <span class="vrl" style="font-size:18px;font-weight:700;color:white;">DEUDA REAL NETA ESTIMADA</span>
+        <span class="vrv vg" style="font-size:26px;">≈ 5.782,50 €</span>
+      </div>
+      <div class="vfin">
+        <p>La reclamación de <strong>16.493,50 €</strong> incluye aproximadamente <strong>10.711 €</strong> reclamados sin fundamento (meses ya pagados o duplicados). La deuda real neta, aplicadas las compensaciones por pagos voluntarios en exceso, se estima en <strong>≈ 5.782,50 €</strong>, menos del 35% de lo reclamado. Los arrendatarios solicitan que se requiera al arrendador la aportación de los extractos completos de la cuenta <strong>ES05 2100 2235 1501 0067 0711</strong> para contraste pericial con los justificantes de pago de los arrendatarios.</p>
+      </div>
+    </div>
+  </div>
+
+  <hr class="div">
+
+  <!-- 04 FUNDAMENTOS JURÍDICOS -->
+  <div class="sec">
+    <div class="sec-hdr">
+      <div class="sec-n">04</div>
+      <div class="sec-tb"><h2>Fundamentos Jurídicos y Solicitudes</h2><p>Argumentos de defensa aplicables al caso concreto</p></div>
+    </div>
+
+    <div class="lc">
+      <h3>Argumentos de defensa</h3>
+      <ul>
+        <li><strong>Fuerza mayor — COVID-19 (impagos de 2020):</strong> Los meses sin pagar de abril y mayo de 2020 se enmarcan en el estado de alarma declarado por RD 463/2020. La situación de ERTE acreditada del arrendatario constituye fuerza mayor que atenúa la responsabilidad y excluye los intereses de demora para ese período, según doctrina mayoritaria de los juzgados de arrendamientos urbanos durante la pandemia.</li>
+        <li><strong>Error grave en la liquidación:</strong> El burofax reclama como impagadas mensualidades de 2022 y 2023 que constan como abonadas en los registros bancarios de los arrendatarios. La suma de estos errores supera los 10.000 €. Se solicita la práctica de prueba pericial contable cruzando los extractos del arrendador con los justificantes de transferencia de los arrendatarios.</li>
+        <li><strong>Duplicidad en oct–nov 2020:</strong> El pago de 1.300 € realizado el 6 de noviembre de 2020 cubría expresamente dos mensualidades (octubre + noviembre). Reclamarlas por separado como si estuviesen ambas impagadas supone reclamar 1.300 € indebidamente.</li>
+        <li><strong>Compensación por pagos en exceso (art. 1163 CC):</strong> Los abonos superiores a 650 €/mes realizados en 2024 (700 €) y 2025 (750–800 €) deben imputarse como pago a cuenta de la deuda anterior. El exceso acumulado supera los 950 €.</li>
+        <li><strong>Buena fe contractual (art. 7 CC):</strong> Los arrendatarios mantuvieron pagos parciales incluso durante los meses de mayor dificultad económica, regularizaron su situación progresivamente y superaron la renta pactada en los últimos dos años. Esta conducta acredita plena buena fe y contradice la imagen de abandono del contrato que sugiere el burofax.</li>
+        <li><strong>Depósito de fianza — Cláusula Octava:</strong> El contrato establece un depósito de fianza de 650 € entregado a la firma. Dicha cantidad deberá computarse y descontarse de cualquier liquidación final, salvo que el arrendador acredite su devolución documentada.</li>
+        <li><strong>Posible prescripción parcial (art. 1966 CC):</strong> Las rentas anteriores a marzo de 2021 podrían estar afectadas por el plazo de prescripción de 5 años para las acciones personales de cobro, salvo que el arrendador acredite actos de interrupción del plazo. Se solicita que el letrado contrario aporte dicha acreditación.</li>
+      </ul>
+    </div>
+
+    <div class="bx bx-g">
+      <div class="bt g">◆ Declaración y propuesta de los arrendatarios</div>
+      <p>Los arrendatarios reconocen la existencia de una deuda real con el arrendador y reiteran su <span class="hl">voluntad inequívoca de pago</span> de la cantidad efectivamente adeudada, estimada en <strong>≈ 5.782,50 €</strong>, una vez corregidos los errores documentados. Solicitan formalmente:</p>
+      <p style="margin-top:12px;"><strong>1)</strong> Que se rectifique la liquidación presentada en el burofax incorporando los justificantes de pago aportados. <strong>2)</strong> Que se aporten los extractos bancarios de la cuenta ES05 2100 2235 1501 0067 0711 para contraste cruzado. <strong>3)</strong> Que se acuerde un plan de pago escalonado de la deuda real, acorde a la situación económica actual de los arrendatarios. <strong>4)</strong> Que se deduzca de la liquidación final el importe de la fianza (650 €) y los pagos en exceso acreditados (≈ 950 €).</p>
+      <p style="margin-top:12px;">Los arrendatarios ponen a disposición todos los justificantes de transferencia BBVA, ingresos en cajero y extractos bancarios mencionados en este informe, así como la documentación acreditativa del ERTE y situación de exclusión social durante 2020–2021.</p>
+    </div>
+  </div>
+
+</div>
+
+<div style="background:var(--navy);color:rgba(255,255,255,0.3);text-align:center;padding:26px;font-family:'Roboto Mono',monospace;font-size:10px;letter-spacing:2px;text-transform:uppercase;margin-top:55px;">
+  Respuesta a Burofax E-CST278701 · Elaborado por los arrendatarios · Madrid, marzo 2026 · Para uso legal
+</div>
+
+</body>
+</html>
